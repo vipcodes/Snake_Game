@@ -1,5 +1,6 @@
 import random
 from turtle import Turtle
+
 COLOR = ["red", "green", "blue", "white", "cyan", "magenta"]
 
 STARTING_POSITIONS = [(0, 0), (-10, 0), (-20, 0)]
@@ -12,10 +13,10 @@ RIGHT = 0
 
 class Snake:
     def __init__(self):
+        self.x = 0
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
-
 
     def create_snake(self):
         for position in STARTING_POSITIONS:
@@ -36,6 +37,15 @@ class Snake:
         new_seg.speed("fastest")
         new_seg.goto(position)
         self.segments.append(new_seg)
+
+    def reset(self):
+        for seg in self.segments:
+            seg.goto(1000, 1000)
+        self.segments.clear()
+        self.create_snake()
+        self.head = self.segments[0]
+        self.x += 1
+        return self.x
 
     def extend(self):
         self.add_segment(self.segments[-1].position())
